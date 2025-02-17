@@ -1,8 +1,5 @@
 package Vln;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class CostCount {
 
     final int BASECOST = 400;
