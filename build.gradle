@@ -1,24 +1,46 @@
 plugins {
+    id 'io.qameta.allure' version '2.12.0'
     id 'java'
     id 'application'
 }
+
+ext.allureVersion = '2.12.0'
 
 group = 'Vln'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-}
+    maven {
+            url 'https://repo.maven.apache.org/maven2'
+            metadataSources {
+                mavenPom()
+            }
+        }
+    }
+
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation "io.qameta.allure:allure-junit5:$allureVersion"
+    implementation "io.qameta.allure:allure-rest-assured:$allureVersion"
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'ch.qos.logback:logback-classic:1.4.12'
 }
 
 application {
     mainClass = 'Vln.Main'
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
+
 test {
     useJUnitPlatform()
+}
+
+
 }

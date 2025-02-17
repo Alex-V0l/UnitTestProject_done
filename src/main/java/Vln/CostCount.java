@@ -16,6 +16,9 @@ public class CostCount {
     }
 
     public int addPriceForDistance(Integer distance) {
+        if (distance <= 0) {
+            throw new IllegalArgumentException("Расстояние должно быть больше 0.");
+        }
         if (distance <= 2) {
             return 50;
         } else if (distance <= 10) {
@@ -50,20 +53,25 @@ public class CostCount {
         }
     }
 
-    public double addPriceForBusyness(String busyness) {
-        return switch (busyness) {
-            case "очень высокая" -> 1.6;
-            case "высокая" -> 1.4;
-            case "повышенная" -> 1.2;
-            default -> 1;
-        };
+    public double addMultiplierForBusyness(String busyness) throws Exception {
+        if ("очень высокая".equals(busyness)) {
+            return 1.6;
+        } else if ("высокая".equals(busyness)) {
+            return 1.4;
+        } else if ("повышенная".equals(busyness)) {
+            return 1.2;
+        } else if ("обычная".equals(busyness)) {
+            return 1.0;
+        } else {
+            throw new IllegalArgumentException("Некорректное значение загруженности. Введите \"очень высокая\", \"высокая\", \"повышенная\" или \"обычная\".");
+        }
     }
 
-    public int countTotalPrice() throws Exception {
-        int totalPrice = (int) ((addPriceForDistance(distance)
-                + addPriceForDimensions(dimensions)
-                + addPriceForFragility(fragility))
-                * addPriceForBusyness(busyness));
+    public double countTotalPrice() throws Exception {
+        double totalPrice = ((addPriceForDistance(distance)
+                        + addPriceForDimensions(dimensions)
+                        + addPriceForFragility(fragility))
+                        * addMultiplierForBusyness(busyness));
 
         return Math.max(totalPrice, BASECOST);
     }
