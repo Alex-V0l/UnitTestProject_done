@@ -10,11 +10,11 @@ public class DistanceTest {
     @DisplayName("проверка значений из классов эквивалентности и границ")
     @ParameterizedTest
     @Tags({@Tag("smoke"), @Tag("distanceTest")})
-    @ValueSource(ints = {1, 2, 3, 10, 15, 30, 31, 45})
-    void addPriceForDistanceTest(int distance) {
+    @ValueSource(doubles = {1.0, 2.0, 3.0, 10.0, 15.5, 30.0, 31.0, 45.0})
+    void addPriceForDistanceTest(double distance) {
         CostCount costCount = new CostCount(distance, "оооо", "ааа", "иии");
-        int expectedPriceForDistance;
-        int actualPriceForDistance = costCount.addPriceForDistance(distance);
+        double expectedPriceForDistance;
+        double actualPriceForDistance = costCount.addPriceForDistance(distance);
 
         if (distance <= 2) {
             expectedPriceForDistance = 50;
@@ -31,8 +31,8 @@ public class DistanceTest {
     @DisplayName("невозможность расчитать стоимость при нулевом и отрицательном расстоянии")
     @ParameterizedTest
     @Tags({@Tag("smoke"), @Tag("distanceTest"), @Tag("negative"), @Tag("exception")})
-    @ValueSource(ints = {0, -1, -5})
-    void addPriceForDistance_InvalidDistance_ThrowsException(int distance) {
+    @ValueSource(doubles = {0.0, -1.0, -5.5})
+    void addPriceForDistance_InvalidDistance_ThrowsException(double distance) {
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             CostCount costCount = new CostCount(distance, "оооо", "ааа", "иии");

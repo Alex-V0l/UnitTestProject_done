@@ -16,12 +16,12 @@ public class Main {
         try {
             String[] parts = InputParser.parseInput(input);
 
-            int distance = InputParser.parseDistance(parts[0]);
+            double distance = InputParser.parseDistance(parts[0]);
             String dimensions = parts[1];
             String fragility = parts[2];
             String busyness = parts[3];
 
-            CostCount cost = new CostCount(distance, dimensions, fragility, busyness);
+            CostCount cost = new CostCount((int) distance, dimensions, fragility, busyness);
 
             double totalPrice = cost.countTotalPrice();
             System.out.println("Общая стоимость доставки составляет " + totalPrice);

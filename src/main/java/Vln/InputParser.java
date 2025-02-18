@@ -10,9 +10,9 @@ public class InputParser {
         return parts;
     }
 
-    public static int parseDistance(String distanceStr) throws IllegalArgumentException {
+    public static double parseDistance(String distanceStr) throws IllegalArgumentException {
         try {
-            return Integer.parseInt(distanceStr);
+            return Double.parseDouble(distanceStr);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Ошибка: расстояние должно быть числом!");
         }

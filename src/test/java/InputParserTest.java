@@ -3,10 +3,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
 import org.junit.jupiter.api.Test;
-
-
 import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,8 +38,8 @@ public class InputParserTest {
     @Test
     void parseDistanceTest() {
         String input = "10";
-        int expectedParasingResult = 10;
-        int actualParsingResult = InputParser.parseDistance(input);
+        double expectedParasingResult = 10;
+        double actualParsingResult = InputParser.parseDistance(input);
 
         assertEquals(expectedParasingResult, actualParsingResult, "Значения должны быть одинаковыми");
     }

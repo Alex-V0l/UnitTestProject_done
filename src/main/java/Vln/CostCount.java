@@ -3,30 +3,30 @@ package Vln;
 public class CostCount {
 
     final int BASECOST = 400;
-    private int distance;
+    private double distance;
     private String dimensions;
     private String fragility;
     private String busyness;
 
-    public CostCount(int distance, String dimensions, String fragility, String busyness) {
+    public CostCount(double distance, String dimensions, String fragility, String busyness) {
         this.distance = distance;
         this.dimensions = dimensions;
         this.fragility = fragility;
         this.busyness = busyness;
     }
 
-    public int addPriceForDistance(Integer distance) {
+    public double addPriceForDistance(Double distance) {
         if (distance <= 0) {
             throw new IllegalArgumentException("Расстояние должно быть больше 0.");
         }
-        if (distance <= 2) {
-            return 50;
-        } else if (distance <= 10) {
-            return 100;
-        } else if (distance <= 30) {
-            return 200;
+        if (distance <= 2.0) {
+            return 50.0;
+        } else if (distance <= 10.0) {
+            return 100.0;
+        } else if (distance <= 30.0) {
+            return 200.0;
         } else {
-            return 300;
+            return 300.0;
         }
     }
 
@@ -41,7 +41,7 @@ public class CostCount {
     }
 
     public int addPriceForFragility(String fragility) throws Exception {
-        if ("хрупкий".equals(fragility) && distance > 30) {
+        if ("хрупкий".equals(fragility) && distance > 30.0) {
             throw new IllegalArgumentException("Хрупкий груз не может быть перевезен на расстояние более 30 км");
         }
         if ("хрупкий".equals(fragility)) {
