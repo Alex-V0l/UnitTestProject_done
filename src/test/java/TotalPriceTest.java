@@ -30,7 +30,7 @@ public class TotalPriceTest {
             "40.0, 'большие', 'нехрупкий', 'очень высокая',800.0",
     })
 
-    void TotalPriceTest(double distance, String dimensions, String fragility, String busyness, double expectedTotalPrice) {
+    void PairWiseTotalPriceTest(double distance, String dimensions, String fragility, String busyness, double expectedTotalPrice) {
         assertDoesNotThrow(() -> {
             CostCount costCount = new CostCount(distance, dimensions, fragility, busyness);
             double actualTotalPrice = costCount.countTotalPrice();
@@ -60,7 +60,7 @@ public class TotalPriceTest {
             "40.0, 'маленькие', 'хрупкий', 'обычная', 700.0",
     })
 
-    void TotalPriceNegativeTest(double distance, String dimensions, String fragility, String busyness, double expectedTotalPrice) {
+    void TotalPriceNegativeTest(double distance, String dimensions, String fragility, String busyness) {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->{
         CostCount costCount = new CostCount(distance, dimensions, fragility, busyness);
         costCount.countTotalPrice();

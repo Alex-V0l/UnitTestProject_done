@@ -30,8 +30,6 @@ public class Main {
             System.err.println("Ошибка: расстояние должно быть числом!");
         } catch (IllegalArgumentException e) {
             System.err.println("Ошибка: " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Ошибка: " + e.getMessage());
         } finally {
             scanner.close();
         }
