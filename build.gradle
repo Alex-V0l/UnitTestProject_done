@@ -2,6 +2,7 @@ plugins {
     id 'io.qameta.allure' version '2.12.0'
     id 'java'
     id 'application'
+    id 'jacoco'
 }
 
 ext.allureVersion = '2.12.0'
@@ -19,32 +20,51 @@ repositories {
         }
     }
 
-
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation "io.qameta.allure:allure-junit5:${allureVersion}"
-    implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
-    implementation 'org.slf4j:slf4j-api:1.7.32'
-    implementation 'ch.qos.logback:logback-classic:1.4.12'
+jacoco {
+    toolVersion = '0.8.12'
 }
 
-application {
-    mainClass = 'Vln.Main'
+tasks.test {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+jacocoTestReport {
+    dependsOn test
+
+
+    classDirectories.setFrom(files(sourceSets.main.output.classesDirs))
+    sourceDirectories.setFrom(files('src/main/java'))
+    executionData.setFrom(files("$buildDir/jacoco/test.exec"))
+}
+
+
+
+
+    dependencies {
+        testImplementation platform('org.junit:junit-bom:5.10.0')
+        testImplementation 'org.junit.jupiter:junit-jupiter'
+        testImplementation "io.qameta.allure:allure-junit5:${allureVersion}"
+        implementation "io.qameta.allure:allure-rest-assured:${allureVersion}"
+        implementation 'org.slf4j:slf4j-api:1.7.32'
+        implementation 'ch.qos.logback:logback-classic:1.4.12'
+    }
+
+    application {
+        mainClass = 'Vln.Main'
+    }
+
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(21))
+        }
     }
 
     allure {
-        version = '2.12.0'
+        version = allureVersion
     }
 
-test {
-    useJUnitPlatform()
-}
-
-
-}
+    test {
+        useJUnitPlatform()
+        finalizedBy 'jacocoTestReport'
+    }
